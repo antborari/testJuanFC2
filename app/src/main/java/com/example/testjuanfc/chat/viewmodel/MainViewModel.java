@@ -1,13 +1,18 @@
 package com.example.testjuanfc.chat.viewmodel;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModel;
 
 import com.example.testjuanfc.chat.contract.SuccessMessagesListener;
 import com.example.testjuanfc.chat.data.MessageDTO;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -16,16 +21,19 @@ import java.util.List;
 public class MainViewModel extends ViewModel {
 
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference ref = database.getReference("chat");
+    DatabaseReference ref = database.getReference().child ("listChats");
 
     public void getMessagesUser(SuccessMessagesListener successMessagesListener) {
-        List<MessageDTO> messageDTOS = new ArrayList<>();
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                List<MessageDTO> messageDTOS = new ArrayList<>();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    MessageDTO messageDTO = snapshot.getValue(MessageDTO.class);
-                    messageDTOS.add(messageDTO);
+                    try {
+                        MessageDTO messageDTO = snapshot.getValue(MessageDTO.class);
+                        messageDTOS.add(messageDTO);
+                    }catch (DatabaseException ex) {
+                    }
                 }
                 successMessagesListener.getMessages(messageDTOS);
             }
@@ -36,15 +44,20 @@ public class MainViewModel extends ViewModel {
         });
     }
 
+    public void sendMessage(MessageDTO messageDTO) {
+        ref.runTransaction(new Transaction.Handler() {
+            @NonNull
+            @Override
+            public Transaction.Result doTransaction(@NonNull MutableData mutableData) {
+                ref.push().setValue(messageDTO);
+                return Transaction.success(mutableData);
+            }
 
-//    private List<MessageDTO> toPatient(DataSnapshot dataSnapshot) {
-//        for (:
-//             ) {
-//
-//        }
-//        return dataSnapshot.getChildren().forEach() map { children ->
-//                children.getValue(PacientDTO::class.java)!!.setKeyPatient(children.key)
-//        }.filter { value -> !value.PatientNo.isNullOrEmpty() }
-//    }
+            @Override
+            public void onComplete(@Nullable DatabaseError databaseError, boolean b, @Nullable DataSnapshot dataSnapshot) {
+
+            }
+        });
+    }
 
 }

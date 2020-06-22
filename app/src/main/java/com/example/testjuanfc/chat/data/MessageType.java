@@ -3,8 +3,8 @@ package com.example.testjuanfc.chat.data;
 import com.google.firebase.database.PropertyName;
 
 public enum  MessageType {
-    Receiver(1),
-    Sender(0),
+    User(1),
+    Agent(0),
     ;
 
     private int type;

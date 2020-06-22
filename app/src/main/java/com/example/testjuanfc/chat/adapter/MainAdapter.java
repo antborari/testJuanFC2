@@ -25,44 +25,50 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         this.messageList = messageList;
     }
 
-    private static final int TYPE_RECEIVER = 1;
-    private static final int TYPE_SENDER = 0;
+    private static final int TYPE_USER = 1;
+    private static final int TYPE_AGENT = 0;
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
-        if (viewType == TYPE_SENDER) {
+        if (viewType == TYPE_AGENT) {
             view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_chat_sender, parent, false);
-            return new ViewHolderSender(view);
+                    .inflate(R.layout.item_chat_agent, parent, false);
+            return new ViewHolderAgent(view);
         } else {
             view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_chat_receiver, parent, false);
-            return new ViewHolderReceiver(view);
+                    .inflate(R.layout.item_chat_user, parent, false);
+            return new ViewHolderUser(view);
         }
     }
 
-    public void setMessageList(List<MessageDTO> messageDTO) {
+    public void addMessageList(List<MessageDTO> messageDTO) {
+        int initialPosition = messageList.size();
+        messageList = messageDTO;
+        notifyItemRangeInserted(initialPosition, messageList.size() - 1);
+    }
+
+    public void addMessageListNotifyDataChanged(List<MessageDTO> messageDTO) {
         messageList = messageDTO;
         notifyDataSetChanged();
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (messageList.get(position).getType() == (MessageType.Receiver.getType())) {
-            return TYPE_RECEIVER;
+        if (messageList.get(position).getType() == (MessageType.User.getType())) {
+            return TYPE_USER;
         } else {
-            return TYPE_SENDER;
+            return TYPE_AGENT;
         }
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if (getItemViewType(position) == TYPE_SENDER) {
-            ((ViewHolderSender) holder).bind(messageList.get(position).getMessage());
+        if (getItemViewType(position) == TYPE_AGENT) {
+            ((ViewHolderAgent) holder).bind(messageList.get(position).getMessage());
         } else {
-            ((ViewHolderReceiver) holder).bind(messageList.get(position).getMessage());
+            ((ViewHolderUser) holder).bind(messageList.get(position).getMessage());
         }
     }
 
@@ -71,12 +77,12 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return messageList.size();
     }
 
-    class ViewHolderSender extends RecyclerView.ViewHolder {
+    class ViewHolderAgent extends RecyclerView.ViewHolder {
         private TextView tvSender;
 
-        public ViewHolderSender(@NonNull View itemView) {
+        public ViewHolderAgent(@NonNull View itemView) {
             super(itemView);
-            tvSender = itemView.findViewById(R.id.tvSender);
+            tvSender = itemView.findViewById(R.id.tvAgent);
         }
 
         public void bind(String messenger) {
@@ -84,11 +90,11 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
-    class ViewHolderReceiver extends RecyclerView.ViewHolder {
-        @BindView(R.id.tvReceiver)
+    class ViewHolderUser extends RecyclerView.ViewHolder {
+        @BindView(R.id.tvUser)
         TextView tvReceiver;
 
-        public ViewHolderReceiver(@NonNull View itemView) {
+        public ViewHolderUser(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
