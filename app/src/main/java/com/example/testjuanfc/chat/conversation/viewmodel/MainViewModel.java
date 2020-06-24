@@ -1,10 +1,10 @@
-package com.example.testjuanfc.chat.viewmodel;
+package com.example.testjuanfc.chat.conversation.viewmodel;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModel;
 
-import com.example.testjuanfc.chat.contract.SuccessMessagesListener;
+import com.example.testjuanfc.chat.conversation.contract.SuccessMessagesListener;
 import com.example.testjuanfc.chat.data.MessageDTO;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

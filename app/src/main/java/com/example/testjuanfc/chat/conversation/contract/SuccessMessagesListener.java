@@ -1,4 +1,4 @@
-package com.example.testjuanfc.chat.contract;
+package com.example.testjuanfc.chat.conversation.contract;
 
 import com.example.testjuanfc.chat.data.MessageDTO;
 

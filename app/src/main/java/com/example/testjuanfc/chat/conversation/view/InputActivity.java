@@ -1,4 +1,4 @@
-package com.example.testjuanfc.chat.view;
+package com.example.testjuanfc.chat.conversation.view;
 
 import android.content.Intent;
 import android.os.Bundle;

@@ -9,9 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".chat.view.MainActivity">
+        <activity android:name=".chat.conversation.view.MainActivity">
         </activity>
-        <activity android:name=".chat.view.InputActivity">
+        <activity android:name=".chat.conversation.view.ConversationsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

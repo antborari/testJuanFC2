@@ -1,4 +1,4 @@
-package com.example.testjuanfc.chat.view;
+package com.example.testjuanfc.chat.conversation.view;
 
 import android.os.Bundle;
 import android.view.View;
@@ -12,11 +12,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.testjuanfc.R;
-import com.example.testjuanfc.chat.adapter.MainAdapter;
-import com.example.testjuanfc.chat.contract.SuccessMessagesListener;
+import com.example.testjuanfc.chat.conversation.adapter.MainAdapter;
+import com.example.testjuanfc.chat.conversation.contract.SuccessMessagesListener;
+import com.example.testjuanfc.chat.conversation.viewmodel.MainViewModel;
 import com.example.testjuanfc.chat.data.MessageDTO;
 import com.example.testjuanfc.chat.data.MessageType;
-import com.example.testjuanfc.chat.viewmodel.MainViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         for(MessageDTO messageDTO : messages) {
             if (messageDTO.getReaded() == 0) { readed++; }
         }
+        return readed;
     }
 
     private void sendMessage() {

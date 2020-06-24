@@ -6,4 +6,5 @@
 
     <color name="background_chat">#DFDFDF</color>
     <color name="background_white">#FFFFFF</color>
+    <color name="background_gray">#E2E2E2</color>
 </resources>

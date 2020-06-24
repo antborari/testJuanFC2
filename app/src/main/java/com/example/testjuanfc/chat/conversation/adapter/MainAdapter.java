@@ -1,4 +1,4 @@
-package com.example.testjuanfc.chat.adapter;
+package com.example.testjuanfc.chat.conversation.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,12 +43,6 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
-    public void addMessageList(List<MessageDTO> messageDTO) {
-        int initialPosition = messageList.size();
-        messageList = messageDTO;
-        notifyItemRangeInserted(initialPosition, messageList.size() - 1);
-    }
-
     public void addMessageListNotifyDataChanged(List<MessageDTO> messageDTO) {
         messageList = messageDTO;
         notifyDataSetChanged();
@@ -56,7 +50,7 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        if (messageList.get(position).getType() == (MessageType.User.getType())) {
+        if (messageList.get(position).getType() == (MessageType.Caller.getType())) {
             return TYPE_USER;
         } else {
             return TYPE_AGENT;
