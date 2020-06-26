@@ -33,7 +33,7 @@ public class ConversationsActivity extends AppCompatActivity {
     }
 
     private void goToUsers() {
-        conversationViewModel.getUsers(10, new SuccessUsersListener() {
+        conversationViewModel.getUsers(3, new SuccessUsersListener() {
             @Override
             public void retrieveUsers(ResultsDTO resultsDTO) {
                 initializeAdapter(resultsDTO.getResults());

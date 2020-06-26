@@ -9,7 +9,7 @@ import retrofit2.http.Query;
 
 public interface RetrofitService {
 
-    @GET("api/?results=10")
-    Call<ResultsDTO> getUsers(@Query("user")int numberUsers);
+    @GET("api/")
+    Call<ResultsDTO> getUsers(@Query("results")int numberUsers);
 
 }
